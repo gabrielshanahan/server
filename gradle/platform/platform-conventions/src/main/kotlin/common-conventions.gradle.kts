@@ -25,6 +25,8 @@ repositories {
 }
 
 dependencies {
+    implementation(libs.logback)
+
     testImplementation(libs.kotest.runner)
     testImplementation(libs.kotest.assertions)
 }

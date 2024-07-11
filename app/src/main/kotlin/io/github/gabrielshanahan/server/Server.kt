@@ -2,6 +2,12 @@ package io.github.gabrielshanahan.server
 
 import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.LoggerContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.supervisorScope
 import java.io.OutputStream
 import java.net.ServerSocket
 import java.net.Socket
@@ -41,23 +47,28 @@ fun main(args: CliArguments) {
     val port = args.intValueOf(PORT_ARG, DEFAULT_PORT)
     val serverSocket = ServerSocket(port)
 
+    val serverScope = CoroutineScope(SupervisorJob())
+
     logger.info("Server started on port $port")
     while (true) {
         val clientSocket = serverSocket.accept()
         logger.debug("Accepted connection from ${clientSocket.inetAddress}:${clientSocket.port}")
-        handle(clientSocket)
+        serverScope.launch {
+            logger.debug("Launching")
+            handle(clientSocket)
+        }
     }
 }
 
 private fun OutputStream.write(str: String) = write(str.trimIndent().toByteArray())
 
-private fun handle(clientSocket: Socket) {
+private suspend fun handle(clientSocket: Socket) {
     val input = clientSocket.getInputStream().bufferedReader()
     val output = clientSocket.getOutputStream()
 
     val header = input.readLine() // Discard the request header (up to blank line)
     logger.debug("Request header: $header")
-    Thread.sleep(OPERATION_DURATION_MS) // Simulate some work
+    delay(OPERATION_DURATION_MS) // Simulate some work
     output.write(
         """
         HTTP/1.1 200 Okay

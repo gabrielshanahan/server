@@ -13,10 +13,16 @@ class StressTest : Simulation() {
 
     val scn = scenario("StressTest").exec(http("request1").get("/"))
 
+    /**
+     * With these numbers, you'll probably start hitting the open files limit on your OS,
+     * which manifests as a 'java.net.SocketException: Too many open files' exception.
+     *
+     * Consult e.g. this on how to fix this (macOS): https://stackoverflow.com/questions/33836092/too-many-open-files-when-executing-gatling-on-mac
+     */
     init {
         setUp(
                 scn.injectOpen(
-                    constantUsersPerSec(1000.0).during(Duration.ofSeconds(5)).randomized()))
+                    constantUsersPerSec(10_000.0).during(Duration.ofSeconds(5)).randomized()))
             .protocols(httpProtocol)
             .maxDuration(Duration.ofSeconds(10))
     }

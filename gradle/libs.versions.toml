@@ -7,6 +7,7 @@ detekt-plugin = "1.23.6"
 ktfmt-plugin = "0.19.0"
 foojay-plugin = "0.8.0"
 logback = "1.5.6"
+kotlin-coroutines = "1.8.1"
 kotest = "5.9.1"
 okHttp = "4.12.0"
 gatling-plugin = "3.11.5"
@@ -16,6 +17,7 @@ kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", v
 detekt-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt-plugin" }
 ktfmt-plugin = { module = "com.ncorti.ktfmt.gradle:plugin", version.ref = "ktfmt-plugin" }
 foojay-plugin = { module = "org.gradle.toolchains:foojay-resolver", version.ref = "foojay-plugin" }
+kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 okHttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okHttp" }
 kotest-runner = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }

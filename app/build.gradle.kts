@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
     implementation(project(":library"))
+    implementation(libs.kotlin.coroutines)
 
     implementation(libs.bundles.gatling)
 

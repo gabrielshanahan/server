@@ -22,8 +22,8 @@ class StressTest : Simulation() {
     init {
         setUp(
                 scn.injectOpen(
-                    constantUsersPerSec(10_000.0).during(Duration.ofSeconds(5)).randomized()))
+                    constantUsersPerSec(5_000.0).during(Duration.ofSeconds(20))))
             .protocols(httpProtocol)
-            .maxDuration(Duration.ofSeconds(10))
+//            .maxDuration(Duration.ofSeconds(10))
     }
 }
